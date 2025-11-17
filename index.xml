@@ -10,7 +10,7 @@
 <atom:link href="https://your-website-url.example.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>Temp. description</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Tue, 04 Nov 2025 06:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 17 Nov 2025 06:00:00 GMT</lastBuildDate>
 <item>
   <title>Gage Wood College World Series 2025</title>
   <dc:creator>Kyler Adams</dc:creator>
@@ -42,6 +42,7 @@ font-style: inherit;">library</span>(tidyverse)</span></code></pre></div></div>
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 </div>
+<p>This is a test second sentence.</p>
 
 
 
@@ -50,7 +51,7 @@ font-style: inherit;">library</span>(tidyverse)</span></code></pre></div></div>
   <category>ncaa</category>
   <category>arkansas</category>
   <guid>https://your-website-url.example.com/posts/college-world-series-arkansas-razorbacks-gage-wood/</guid>
-  <pubDate>Tue, 04 Nov 2025 06:00:00 GMT</pubDate>
+  <pubDate>Mon, 17 Nov 2025 06:00:00 GMT</pubDate>
   <media:content url="https://your-website-url.example.com/posts/college-world-series-arkansas-razorbacks-gage-wood/image.png" medium="image" type="image/png"/>
 </item>
 </channel>
