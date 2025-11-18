@@ -74,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0774fc528949661fb60d8774007a227f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-ffa9a6279353761231ec249df0a7fdd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -185,7 +185,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>This is a test first sentence.</p>
+<p>Woo Pig Sooie. That is a sound commonly heard coming from every corner of Baum-Walker Stadium as the Arkansas Razorbacks play baseball every spring in Fayetteville, Arkansas. Though, the ballpark on 1255 South Razorback Road isn’t the only place you can hear thousands of fans chant those three words in perfect unison. The Hogs, as they’re also known by, tend to frequently migrate their way from the south up to the middle of America to spread their fandom in a city known as Omaha, Nebraska.</p>
+<p>While the venue has changed over the years, if the Razorbacks are in town, it will be hard to not know that they have made their way back to compete in the Men’s College World Series. The team even adorns a new nickname when setting up shop in Charles Schwab Field, the “Omahogs.” While Arkansas is arguably an infamous name in the concourses of Charles Schwab, due to the blunder of the century in right field, their repeated appearances afterwards help mend the wound of a day that no one wants to remember back in 2018. 2025 was no different either, as the “Omahogs” and their fans came in droves to support the Razorbacks as they checked another ticket to return try and finally be able to stand on the podium as National Champions. However, a conference rival was looking to repeat the success they attained not two years prior.</p>
+<p>From the onset of the 2024-2025 college baseball season, the Arkansas Razorbacks and LSU Tigers were shaping up to be top contenders and favorites to be part of the final eight that get to step foot in the Mecca of college baseball, Charles Schwab Field. Both teams were fighting tooth, tusk and nail to try and covet seven days at the top of the rankings during the regular season.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -208,45 +210,755 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbump)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbump)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>D1WeeklyRankings <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/D1Baseball 2025 Rankings.csv"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>NationalSeeds <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/National Seeds.csv"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>CWSOPSERA <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/CWS_OPS_ERA.csv"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>LSUOPSERA <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/CWS_OPS_ERA.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">==</span> <span class="st">"LSU"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>ARKOPSERA <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/CWS_OPS_ERA.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team<span class="sc">==</span><span class="st">"Arkansas"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>CWSPCBD <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/CWSPCBD.csv"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>LSUPCBD <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/CWSPCBD.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">==</span><span class="st">"LSU"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>ARKPCBD <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/CWSPCBD.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team<span class="sc">==</span><span class="st">"Arkansas"</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bump</span>(<span class="at">data=</span>D1WeeklyRankings, <span class="fu">aes</span>(<span class="at">x=</span>Week, <span class="at">y=</span>Rank, <span class="at">group=</span>Team, <span class="at">color=</span>Team)) <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>D1WeeklyRankings, <span class="fu">aes</span> (<span class="at">x=</span>Week, <span class="at">y=</span>Rank, <span class="at">group=</span>Team, <span class="at">color=</span>Team), <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">14</span>), <span class="at">limits =</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.75</span>,<span class="fl">15.75</span>)) <span class="sc">+</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> D1WeeklyRankings <span class="sc">|&gt;</span> <span class="fu">filter</span>(Week <span class="sc">==</span> <span class="fu">min</span>(Week)), <span class="fu">aes</span>(<span class="at">x =</span> Week <span class="sc">-</span> .<span class="dv">4</span>, <span class="at">y=</span>Rank, <span class="at">label =</span> Team), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">hjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> D1WeeklyRankings <span class="sc">|&gt;</span> <span class="fu">filter</span>(Week <span class="sc">==</span> <span class="fu">max</span>(Week)), <span class="fu">aes</span>(<span class="at">x =</span> Week <span class="sc">+</span> .<span class="dv">4</span>, <span class="at">y=</span>Rank, <span class="at">label =</span> Team), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"lightgrey"</span>, <span class="st">"#9D2235"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>, <span class="st">"#461D7C"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>)) <span class="sc">+</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Week"</span>,</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Ranking"</span>,</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Arkansas remains competitive in top 10 rankings."</span>,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"While LSU was able to top the rankings, the Razorbacks never lagged far behind."</span>,</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: D1Baseball | By: Kyler Adams"</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.y=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in compute_group(...): 'StatBump' needs at least two observations per
+group</code></pre>
 </div>
-<p>This is a test second sentence.</p>
-<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in compute_group(...): 'StatBump' needs at least two observations per
+group</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>D1WeeklyRankings <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/D1Baseball 2025 Rankings.csv"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bump</span>(<span class="at">data=</span>D1WeeklyRankings, <span class="fu">aes</span>(<span class="at">x=</span>Week, <span class="at">y=</span>Rank, <span class="at">color=</span>Team, <span class="at">group=</span>Team)) <span class="sc">+</span> <span class="do">## This line is </span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>D1WeeklyRankings, <span class="fu">aes</span> (<span class="at">x=</span>Week, <span class="at">y=</span>Rank, <span class="at">color=</span>Team, <span class="at">group=</span>Team), <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">14</span>), <span class="at">limits =</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.75</span>,<span class="fl">15.75</span>)) <span class="sc">+</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> D1WeeklyRankings <span class="sc">|&gt;</span> <span class="fu">filter</span>(Week <span class="sc">==</span> <span class="fu">min</span>(Week)), <span class="fu">aes</span>(<span class="at">x =</span> Week <span class="sc">-</span> .<span class="dv">4</span>, <span class="at">y=</span>Rank, <span class="at">label =</span> Team), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">hjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> D1WeeklyRankings <span class="sc">|&gt;</span> <span class="fu">filter</span>(Week <span class="sc">==</span> <span class="fu">max</span>(Week)), <span class="fu">aes</span>(<span class="at">x =</span> Week <span class="sc">+</span> .<span class="dv">4</span>, <span class="at">y=</span>Rank, <span class="at">label =</span> Team), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">hjust =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>))<span class="sc">+</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"lightgrey"</span>, <span class="st">"#9D2235"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>, <span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>,<span class="st">"lightgrey"</span>)) <span class="sc">+</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.y=</span><span class="fu">element_blank</span>(),</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y=</span><span class="fu">element_blank</span>(),</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"image.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in compute_group(...): 'StatBump' needs at least two observations per
 group
 Warning in compute_group(...): 'StatBump' needs at least two observations per
 group</code></pre>
 </div>
+</div>
+<p>During the regular season, the Tigers found themselves tied with the TExas Longhorns for the most weeks in the top spot of D1Baseball’s weekly rankings, though the Razorbacks weren’t one to not give lie down and yield in the fight to showcase their prowess on the diamond. Even with LSU seemingly finding themselves on the top of the world, the NCAA Selection Committee found themselves favoring the Longhorns and Hogs over their striped-conference brethern.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>NationalSeeds <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Team =</span> <span class="st">"Team"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Seed =</span> <span class="st">"National Seed"</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title=</span><span class="st">"Razorbacks hold firm advantage over LSU during Regional Selection."</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Both Arkansas and LSU found themselves as two potential SEC Super Regional hosts."</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> <span class="fu">tab_style</span>(</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">weight =</span> <span class="st">"bold"</span>, <span class="at">align =</span> <span class="st">"left"</span>),</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_title</span>(<span class="st">"title"</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> <span class="fu">tab_style</span>(</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">style=</span><span class="fu">cell_text</span>(<span class="at">color=</span><span class="st">"black"</span>, <span class="at">align =</span> <span class="st">"left"</span>),</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations=</span><span class="fu">cells_title</span>(<span class="st">"subtitle"</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_note=</span><span class="fu">md</span>(<span class="st">"Source: NCAA | By: Kyler Adams"</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_column_labels</span>(<span class="at">columns=</span><span class="fu">everything</span>()),</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">style=</span><span class="fu">list</span>(</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_borders</span>(<span class="at">sides=</span><span class="st">"bottom"</span>, <span class="at">weight=</span><span class="fu">px</span>(<span class="dv">4</span>)),</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_text</span>(<span class="at">weight=</span><span class="st">"bold"</span>, <span class="at">size=</span><span class="dv">15</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_row_striping</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_table_lines</span>(<span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span><span class="fu">list</span>(</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"#9D2235"</span>),</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_text</span>(<span class="at">color=</span><span class="st">"white"</span>)</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations=</span><span class="fu">cells_body</span>(</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">rows=</span>Team<span class="sc">==</span><span class="st">"Arkansas"</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    ) </span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">opt_row_striping</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_table_lines</span>(<span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span><span class="fu">list</span>(</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"#461D7C"</span>),</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_text</span>(<span class="at">color=</span><span class="st">"white"</span>)</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations=</span><span class="fu">cells_body</span>(</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>      <span class="at">rows=</span>Team<span class="sc">==</span><span class="st">"LSU"</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    ) </span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="ueeeedihwz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ueeeedihwz table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ueeeedihwz thead, #ueeeedihwz tbody, #ueeeedihwz tfoot, #ueeeedihwz tr, #ueeeedihwz td, #ueeeedihwz th {
+  border-style: none;
+}
+
+#ueeeedihwz p {
+  margin: 0;
+  padding: 0;
+}
+
+#ueeeedihwz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ueeeedihwz .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ueeeedihwz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ueeeedihwz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ueeeedihwz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ueeeedihwz .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ueeeedihwz .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ueeeedihwz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ueeeedihwz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ueeeedihwz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ueeeedihwz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ueeeedihwz .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ueeeedihwz .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ueeeedihwz .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ueeeedihwz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ueeeedihwz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ueeeedihwz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ueeeedihwz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ueeeedihwz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ueeeedihwz .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ueeeedihwz .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ueeeedihwz .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ueeeedihwz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ueeeedihwz .gt_first_summary_row {
+  border-top-style: none;
+  border-top-color: #D3D3D3;
+}
+
+#ueeeedihwz .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ueeeedihwz .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ueeeedihwz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ueeeedihwz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: none;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ueeeedihwz .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: none;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ueeeedihwz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ueeeedihwz .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ueeeedihwz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ueeeedihwz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ueeeedihwz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ueeeedihwz .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ueeeedihwz .gt_left {
+  text-align: left;
+}
+
+#ueeeedihwz .gt_center {
+  text-align: center;
+}
+
+#ueeeedihwz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ueeeedihwz .gt_font_normal {
+  font-weight: normal;
+}
+
+#ueeeedihwz .gt_font_bold {
+  font-weight: bold;
+}
+
+#ueeeedihwz .gt_font_italic {
+  font-style: italic;
+}
+
+#ueeeedihwz .gt_super {
+  font-size: 65%;
+}
+
+#ueeeedihwz .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ueeeedihwz .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ueeeedihwz .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ueeeedihwz .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ueeeedihwz .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ueeeedihwz .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ueeeedihwz .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ueeeedihwz .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ueeeedihwz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="2" class="gt_heading gt_title gt_font_normal" style="text-align: left; color: #000000; font-weight: bold;">Razorbacks hold firm advantage over LSU during Regional Selection.</td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="2" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="text-align: left; color: #000000;">Both Arkansas and LSU found themselves as two potential SEC Super Regional hosts.</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Team" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="border-bottom-width: 4px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 15; font-weight: bold" scope="col">Team</th>
+<th id="Seed" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-bottom-width: 4px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 15; font-weight: bold" scope="col">National Seed</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Team">Vanderbilt</td>
+<td class="gt_row gt_right" headers="Seed">1</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Team">Texas</td>
+<td class="gt_row gt_right gt_striped" headers="Seed">2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Team" style="background-color: #9D2235; color: #FFFFFF">Arkansas</td>
+<td class="gt_row gt_right" headers="Seed" style="background-color: #9D2235; color: #FFFFFF">3</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Team">Auburn</td>
+<td class="gt_row gt_right gt_striped" headers="Seed">4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Team">North Carolina</td>
+<td class="gt_row gt_right" headers="Seed">5</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Team" style="background-color: #461D7C; color: #FFFFFF">LSU</td>
+<td class="gt_row gt_right gt_striped" headers="Seed" style="background-color: #461D7C; color: #FFFFFF">6</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Team">Georgia</td>
+<td class="gt_row gt_right" headers="Seed">7</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Team">Oregon State</td>
+<td class="gt_row gt_right gt_striped" headers="Seed">8</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Team">Florida State</td>
+<td class="gt_row gt_right" headers="Seed">9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Team">Ole Miss</td>
+<td class="gt_row gt_right gt_striped" headers="Seed">10</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Team">Clemson</td>
+<td class="gt_row gt_right" headers="Seed">11</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Team">Oregon</td>
+<td class="gt_row gt_right gt_striped" headers="Seed">12</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Team">Coastal Carolina</td>
+<td class="gt_row gt_right" headers="Seed">13</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Team">Tennessee</td>
+<td class="gt_row gt_right gt_striped" headers="Seed">14</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Team">UCLA</td>
+<td class="gt_row gt_right" headers="Seed">15</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Team">Southern Miss</td>
+<td class="gt_row gt_right gt_striped" headers="Seed">16</td>
+</tr>
+</tbody><tfoot>
+<tr class="gt_sourcenotes odd">
+<td colspan="2" class="gt_sourcenote">Source: NCAA | By: Kyler Adams</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<p>Though the Longhorns and their fans fell of the new-found SEC bandwagon during the Austin Regional, Arkansas and LSU found themselves as the odd ones out, by conference numbers, as they were the only two SEC teams remaining heading into the showdown in Omaha. The fight for the tile of Sole Survivor within the SEC and, potentially, National Champion got underway post haste underneath the lights at Charles Schwab Field in the middle of June with both teams facing off against each other their first round. It was arguably a toss-up between who would be the victor as among the field of eight, the Tigers and Razorbacks found themselves to be nearly, if not the most, neutralizing each other out in terms of what each team found themselves to be more adept at pitching and hitting.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>CWSOPSERA, <span class="fu">aes</span>(<span class="at">x=</span>OPS, <span class="at">y=</span>ERA), <span class="at">color =</span> <span class="st">"grey"</span>, <span class="at">size=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>LSUOPSERA, <span class="fu">aes</span>(<span class="at">x=</span>OPS, <span class="at">y=</span>ERA), <span class="at">color =</span> <span class="st">"#461D7C"</span>, <span class="at">size=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>ARKOPSERA, <span class="fu">aes</span>(<span class="at">x=</span>OPS, <span class="at">y=</span>ERA), <span class="at">color =</span> <span class="st">"#9D2235"</span>, <span class="at">size=</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span><span class="fl">0.897</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>)<span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="fl">4.3725</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>)<span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> .<span class="dv">87</span>, <span class="at">y =</span> <span class="fl">5.31</span>, <span class="at">label =</span> <span class="st">"Weaker Pitching, Weaker Hitting"</span>),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"blue"</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> .<span class="dv">87</span>, <span class="at">y =</span> <span class="fl">3.465</span>, <span class="at">label =</span> <span class="st">"Stronger Pitching, Weaker Hitting"</span>),</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"blue"</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_text</span>(</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> .<span class="dv">94</span>, <span class="at">y =</span> <span class="fl">5.31</span>, <span class="at">label =</span> <span class="st">"Weaker Pitching, Stronger Hitting"</span>),</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"blue"</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> .<span class="dv">94</span>, <span class="at">y =</span> <span class="fl">3.465</span>, <span class="at">label =</span> <span class="st">"Stronger Pitching, Stronger Hitting"</span>),</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"blue"</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>LSUOPSERA, <span class="fu">aes</span>(<span class="at">x=</span>OPS, <span class="at">y=</span>ERA, <span class="at">label=</span>Team), <span class="at">vjust=</span><span class="sc">-</span><span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>ARKOPSERA, <span class="fu">aes</span>(<span class="at">x=</span>OPS, <span class="at">y=</span>ERA, <span class="at">label=</span>Team), <span class="at">hjust=</span><span class="fl">0.6</span>, <span class="at">vjust=</span><span class="sc">-</span><span class="fl">1.2</span>)<span class="sc">+</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>   <span class="fu">labs</span>(</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"OPS (Hitting Performance)"</span>,</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"ERA (Pitching Performance)"</span>,</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Razorbacks and Tigers dominate College World Series metrics."</span>,</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Among the eight CWS teams, LSU and ARK were the strongest competitors."</span>,</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: BaseballReference | By: Kyler Adams"</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>The Razorbacks found themselves on the back foot almost immediately as the Tigers had temporarily felled the Hogs, leading them to tend to their wounds as both teams had a rest day, although the former found themselves on the verge of elimination. With the victory over the Murray State Racers, Arkansas garnered another breath of fresh air before having to face a battered team, either the UCLA Bruins or LSU, as a thunderstorm had delayed the completion of the game the day prior, effectively throwing the losing team to the Hogs with little time to rest. Arkansas was able to raze what was remaining of the Bruins’ pitching staff, the Tigers once again stood as an ironclad knight, waiting to finally quell the now-battered wimper of “Woo Pig Sooie” that had once reverberated throughout the city of Omaha on a fateful Wednesday night.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_step</span>(<span class="at">data=</span>CWSPCBD, <span class="fu">aes</span>(<span class="at">x=</span>Day, <span class="at">y=</span>PC, <span class="at">group=</span>Team), <span class="at">color=</span><span class="st">"lightgrey"</span>, <span class="at">lty=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_step</span>(<span class="at">data=</span>LSUPCBD, <span class="fu">aes</span>(<span class="at">x=</span>Day, <span class="at">y=</span>PC, <span class="at">group=</span>Team), <span class="at">color=</span><span class="st">"#461D7C"</span>, <span class="at">lwd=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_step</span>(<span class="at">data=</span>ARKPCBD, <span class="fu">aes</span>(<span class="at">x=</span>Day, <span class="at">y=</span>PC, <span class="at">group=</span>Team), <span class="at">color=</span><span class="st">"#9D2235"</span>, <span class="at">lwd=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>LSUPCBD, <span class="fu">aes</span>(<span class="at">x=</span>Day, <span class="at">y=</span>PC), <span class="at">color=</span><span class="st">"#461D7C"</span>, <span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>ARKPCBD, <span class="fu">aes</span>(<span class="at">x=</span>Day, <span class="at">y=</span>PC), <span class="at">color=</span><span class="st">"#9D2235"</span>, <span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="fl">5.7</span>, <span class="at">y=</span><span class="dv">550</span>, <span class="at">label=</span><span class="st">"Arkansas"</span>, <span class="at">color=</span><span class="st">"#9D2235"</span>)<span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="fl">5.7</span>, <span class="at">y=</span><span class="dv">235</span>, <span class="at">label=</span><span class="st">"LSU"</span>, <span class="at">color=</span><span class="st">"#461D7C"</span>)<span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">labs</span>(</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Day"</span>,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Pitch Count"</span>,</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"LSU limited their pitch count through the semi-finals."</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"The Razorbacks lagged behind LSU by nearly 200 pitches."</span>,</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: ESPN | By: Kyler Adams"</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>With a crucial misplay reminiscent of an error committed years prior, once again the Arkansas Razorbacks found themselves obtaining defeat in the jaws of victory as the LSU Tigers were able to claim the title of Sole Survivor within the SEC and further their National Championship amount with a 2-0 series victory over the Coastal Carolina Chanticleers. The seeding within the College World Series and outcome of the first game brings the thought of questioning an alternative reality where the Razorbacks might have been able to bring out a win in the opening round and how these two closely matched teams might have fared if roles were reversed.</p>
 
 
 
