@@ -1860,5 +1860,27 @@ font-style: inherit;">"Source: ESPN | By: Kyler Adams"</span></span>
   <pubDate>Mon, 17 Nov 2025 06:00:00 GMT</pubDate>
   <media:content url="https://your-website-url.example.com/posts/college-world-series-arkansas-razorbacks-gage-wood/image.png" medium="image" type="image/png" height="103" width="144"/>
 </item>
+<item>
+  <title>This is a test title</title>
+  <dc:creator>Kyler Adams</dc:creator>
+  <link>https://your-website-url.example.com/posts/incineroar-pokemon-vgc-intimidate/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>this is fodder, placeholder text for testing purposes.</p>
+
+
+
+ ]]></description>
+  <category>esports</category>
+  <category>pokemon</category>
+  <category>vgc</category>
+  <guid>https://your-website-url.example.com/posts/incineroar-pokemon-vgc-intimidate/</guid>
+  <pubDate>Mon, 17 Nov 2025 06:00:00 GMT</pubDate>
+  <media:content url="https://your-website-url.example.com/posts/incineroar-pokemon-vgc-intimidate/image.png" medium="image" type="image/png"/>
+</item>
 </channel>
 </rss>
